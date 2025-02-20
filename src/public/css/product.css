@@ -1,0 +1,158 @@
+.product {
+    position: relative;
+    width: 90%;
+    max-width: 1560px;
+    margin: 3% auto;
+    display: flex;
+    align-items: start;
+    /* justify-content: space-around; */
+}
+
+.product-img,
+.product-detail {
+    width: 50%;
+    margin: 5%;
+}
+
+.product-img img {
+    width: 600px;
+    height: 600px;
+}
+
+.product-name,
+.product-brand {
+    margin: 0;
+}
+
+.product-brand {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.product-price span {
+    font-size: 16px;
+}
+
+.product-price span:nth-child(2) {
+    font-size: 20px;
+}
+
+.product-count {
+    display: flex;
+}
+
+.count-content {
+    margin: 10px 10px 10px 20px;
+}
+
+.count-content img {
+    width: 20px;
+    height: 20px;
+}
+
+.count-content p {
+    margin: 0;
+    text-align: center;
+}
+
+.pay-btn {
+    background-color: #FF5555;
+    color: white;
+    border: 1px solid #FF5555;
+    border-radius: 4px;
+    width: 70%;
+    height: 30px;
+    cursor: pointer;
+}
+
+.product-description {
+    margin-bottom: 40px;
+}
+
+.info-category,
+.info-condition {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.info-ttl {
+    font-weight: bold;
+    margin: 5px 50px 5px 0;
+}
+
+.category-tag {
+    background-color: #D9D9D9;
+    border: 1px solid #D9D9D9;
+    border-radius: 20px;
+    margin-right: 15px;
+    padding: 2px 20px;
+}
+
+.condition {
+    padding: 2px 30px;
+}
+
+.comment-ttl {
+    color: #5F5F5F;
+}
+
+.profile-img {
+    display: flex;
+    align-items: center;
+}
+
+.profile-picture {
+    background-color: #5F5F5F;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.profile-name {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.comment-text {
+    background-color: #E5E5E5;
+    border-radius: 5px;
+    width: 70%;
+}
+
+.form-comment {
+    width: 70%;
+}
+
+.form--ttl {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 40px;
+}
+
+.form--input {
+    display: block;
+    width: 100%;
+    height: 5.5em;
+}
+
+.form--btn {
+    margin-top: 30px;
+    width: 100%;
+    background-color: #FF5555;
+    color: white;
+    border: 1px solid #FF5555;
+    border-radius: 4px;
+    height: 30px;
+    cursor: pointer;
+}
+
+@media (min-width: 768px) and (max-width: 850px) {
+    .profile {
+        margin: 8% auto;
+    }
+
+    .profile-img {
+        margin-top: 10%;
+    }
+}
