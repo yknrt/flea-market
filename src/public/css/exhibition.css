@@ -1,0 +1,112 @@
+.listing {
+    position: relative;
+    width: 50%;
+    max-width: 770px;
+    margin: 3% auto;
+}
+
+.listing-ttl {
+    text-align: center;
+}
+
+.product-img {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5%;
+    border: 1px dashed black;
+    height: 150px;
+}
+
+.upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    margin: 0 auto;
+    font-size: 20px;
+    cursor: pointer;
+    border: 2px solid #FF5555;
+    border-radius: 10px;
+    color: #FF5555;
+}
+
+.upload-input {
+    display: none;
+}
+
+.product-ttl {
+    color: #5F5F5F;
+    border-bottom: 1px solid #5F5F5F;
+}
+
+.form-inner {
+    margin: 20px auto;
+}
+
+.form--label {
+    display: block;
+    font-weight: bold;
+}
+
+.checkbox-label {
+    display: inline-block;
+    margin: 20px 10px;
+    padding: 5px 20px;
+    cursor: pointer;
+    border: 2px solid #FF5555;
+    border-radius: 20px;
+    color: #FF5555;
+}
+
+.checkbox-input {
+    display: none;
+}
+
+.checkbox-input:checked + .checkbox-label {
+    background-color: #FF5555;
+    color: white;
+}
+
+.checkbox-label:hover {
+    opacity: 0.7;
+}
+
+.form--select {
+    width: 100%;
+    height: 30px;
+}
+
+.form--select option {
+    background-color: #B1B1B1;
+    color: white;
+}
+
+.form--select option:first-child {
+    display: none;
+}
+
+.form--input {
+    width: 100%;
+    height: 30px;
+}
+
+.form-btn {
+    width: 100%;
+    height: 30px;
+    margin-top: 10%;
+    background-color: #FF5555;
+    color: white;
+    border: #FF5555;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media (min-width: 768px) and (max-width: 850px) {
+    .profile {
+        margin: 8% auto;
+    }
+
+    .profile-img {
+        margin-top: 10%;
+    }
+}

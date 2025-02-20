@@ -1,0 +1,144 @@
+.payment {
+    position: relative;
+    width: 90%;
+    max-width: 1560px;
+    margin: 3% auto;
+    display: flex;
+    align-items: start;
+}
+
+.payment-detail {
+    width: 60%;
+    margin: 5%;
+}
+
+.payment-info {
+    width: 40%;
+    margin: 5%;
+}
+
+.product {
+    display: flex;
+    align-items: start;
+    padding-bottom: 50px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid black;
+}
+
+.product img {
+    width: 180px;
+    height: 180px;
+}
+
+.product-txt {
+    margin-left: 20px;
+}
+
+.product-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.product-price p {
+    font-size: 30px;
+}
+
+.payment-method {
+    padding-bottom: 50px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid black;
+}
+
+.method-ttl,
+.address-ttl {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 5%;
+}
+
+.select {
+    margin-left: 15%;
+    margin-top: 5%;
+    width: 30%;
+    height: 30px;
+    border-radius: 1px;
+}
+
+.select option {
+    background-color: #B1B1B1;
+    color: white;
+}
+
+.select option:first-child {
+    display: none;
+}
+
+.shipping-address {
+    padding-bottom: 50px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid black;
+}
+
+.address-header {
+    display: flex;
+}
+
+.address-header a {
+    display: block;
+    text-decoration: none;
+    font-size: 20px;
+    margin: 0 5% 0 auto;
+}
+
+.address-txt {
+    margin-left: 15%;
+    margin-top: 5%;
+}
+
+.address-txt p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.table {
+    width: 90%;
+    margin: 20px;
+}
+
+.table__header {
+    width: 50%;
+    text-align: left;
+    font-weight: normal;
+    text-align: center;
+    padding: 30px 0;
+    border: 1px solid black;
+    border-right: none;
+}
+
+.table__text {
+    border: none;
+    width: 50%;
+    text-align: center;
+    padding: 30px 0;
+    border: 1px solid black;
+    border-left: none;
+}
+
+.form-btn {
+    margin: 20px;
+    margin-top: 30px;
+    width: 90%;
+    background-color: #FF5555;
+    color: white;
+    border: 1px solid #FF5555;
+    border-radius: 4px;
+    height: 50px;
+    cursor: pointer;
+}
+
+@media (min-width: 768px) and (max-width: 850px) {
+    .select {
+        width: 50%;
+    }
+}

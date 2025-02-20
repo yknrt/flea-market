@@ -1,0 +1,75 @@
+.profile {
+    position: relative;
+    width: 50%;
+    max-width: 770px;
+    margin: 3% auto;
+}
+
+.profile-ttl {
+    text-align: center;
+}
+
+.profile-img {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 5%;
+    margin-bottom: 10%;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    background-color: gray;
+    border-radius: 50%;
+}
+
+.upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+    font-size: 20px;
+    cursor: pointer;
+    border: 2px solid #FF5555;
+    color: #FF5555;
+}
+
+.upload-input {
+    display: none;
+}
+
+.form-inner {
+    margin: 20px auto;
+}
+
+.form--label {
+    display: block;
+    font-weight: bold;
+}
+
+.form--input {
+    width: 100%;
+    height: 30px;
+}
+
+.form-btn {
+    width: 100%;
+    height: 30px;
+    margin-top: 10%;
+    background-color: #FF5555;
+    color: white;
+    border: #FF5555;
+    border-radius: 5px;
+}
+
+@media (min-width: 768px) and (max-width: 850px) {
+    .profile {
+        margin: 8% auto;
+    }
+
+    .profile-img {
+        margin-top: 10%;
+    }
+}
