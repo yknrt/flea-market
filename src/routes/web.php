@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ListController;
+use App\Http\Controllers\ExhibitionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('product');
-});
+Route::get('/', [ListController::class, 'index'])->name('home');
+Route::get('/?page=mylist', [ListController::class, 'mylist'])->name('mylist');
+
+Route::get('/item/:{item_id}', [ExhibitionController::class, 'index'])->name('item');
+Route::get('/sell', [ExhibitionController::class, 'sell'])->name('sell');

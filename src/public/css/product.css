@@ -41,11 +41,19 @@
     display: flex;
 }
 
+.favorite-btn {
+    border: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+
 .count-content {
     margin: 10px 10px 10px 20px;
 }
 
-.count-content img {
+.count-content img,
+.favorite-btn img {
     width: 20px;
     height: 20px;
 }

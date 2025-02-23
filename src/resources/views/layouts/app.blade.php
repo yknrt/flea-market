@@ -21,7 +21,7 @@
                     <li><a href="#">ログイン</a></li>
                 @endguest
                 <li><a href="#">マイページ</a></li>
-                <li><a href="#">出品</a></li>
+                <li><a href="{{ route('sell') }}">出品</a></li>
             </nav>
         </div>
     </header>
