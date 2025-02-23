@@ -20,8 +20,14 @@
     font-size: 24px;
 }
 
+.active a {
+    color: #FF0000;
+}
+
 .products {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     margin: 5%;
 }
 
@@ -41,8 +47,8 @@
 }
 
 .product-img {
-    max-width: 100%;
-    background-color: #5F5F5F;
+    width: 290px;
+    height: 290px;
 }
 
 .button-label {

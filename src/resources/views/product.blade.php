@@ -6,20 +6,26 @@
 @section('main')
     <div class="product">
         <div class="product-img">
-            <img src="https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg" alt="商品画像">
+            <img src="{{ asset($item->img) }}" alt="商品画像">
         </div>
         <div class="product-detail">
-            <h1 class="product-name">商品名がここに入る</h1>
-            <p class="product-brand">ブランド名</p>
+            <h1 class="product-name">{{ $item->name }}</h1>
+            <p class="product-brand">{{ $item->brand }}</p>
             <div class="product-price">
                 <span>¥</span>
-                <span>47,000</span>
+                <span>{{ $item->price }}</span>
                 <span>(税込)</span>
             </div>
             <div class="product-count">
                 <div class="count-content">
-                    <img src="{{ asset('icon/star.svg') }}" alt="star">
-                    <p>3</p>
+                    <form action="">
+                    @csrf
+                        <input type="hidden" name="shop_id" value="{{ $item->id }}">
+                        <button class="favorite-btn" type="submit">
+                            <img src="{{ asset('icon/star_off.svg') }}">
+                        </button>
+                        <p>3</p>
+                    </form>
                 </div>
                 <div class="count-content">
                     <img src="{{ asset('icon/comment.svg') }}" alt="comment">
@@ -31,18 +37,17 @@
             </form>
             <div class="product-description">
                 <h2>商品説明</h2>
-                <p>スタイリッシュなデザインのメンズ腕時計</p>
+                <p>{{ $item->description }}</p>
             </div>
             <div class="product-info">
                 <h2>商品の情報</h2>
                 <div class="info-category">
                     <div class="info-ttl">カテゴリー</div>
-                    <div class="category-tag">洋服</div>
-                    <div class="category-tag">メンズ</div>
+                    <div class="category-tag">{{ $item->category->category }}</div>
                 </div>
                 <div class="info-condition">
                     <div class="info-ttl">商品の状態</div>
-                    <div class="condition">良好</div>
+                    <div class="condition">{{ $item->condition->condition }}</div>
                 </div>
             </div>
             <div class="product-comment">

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('img')->nullable();
             $table->string('zip');
             $table->string('address');
-            $table->string('building');
+            $table->string('building')->nullable();
             $table->timestamps();
         });
     }
