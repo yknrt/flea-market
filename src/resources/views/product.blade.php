@@ -18,7 +18,7 @@
             </div>
             <div class="product-count">
                 <div class="count-content">
-                    <form action="">
+                    <form action="/favorite" method="post">
                     @csrf
                         <input type="hidden" name="shop_id" value="{{ $item->id }}">
                         <button class="favorite-btn" type="submit">

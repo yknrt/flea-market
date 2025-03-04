@@ -18,8 +18,13 @@
             <p class="txt-row">登録していただいたメールアドレスに認証メールを送付しました。</p>
             <p class="txt-row">メール認証を完了してください。</p>
         </div>
-        <a href="#" class="verify">認証はこちらから</a>
-        <form action="" class="form">
+        @if (!auth()->user()->hasVerifiedEmail())
+            <a href="{{ route('verification.notice') }}" class="verify">認証はこちらから</a>
+        @else
+            <a href="{{ route('profile') }}" class="verify">認証はこちらから</a>
+        @endif
+        <form action="{{ route('verification.send') }}" method="post">
+            @csrf
             <button type="submit" class="resend-email">認証メールを再送する</button>
         </form>
     </div>

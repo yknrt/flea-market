@@ -7,7 +7,7 @@
     <div class="nav">
         <nav class="products-nav">
             <li class="{{ request()->routeIs('home') ? 'active' : ''}}"><a href="{{ route('home') }}">おすすめ</a></li>
-            <li class="{{ request()->routeIs('mylist') ? 'active' : ''}}"><a href="{{ route('mylist') }}">マイリスト</a></li>
+            <li class="{{ request()->routeIs('myList') ? 'active' : ''}}"><a href="{{ route('myList') }}">マイリスト</a></li>
         </nav>
     </div>
     <div class="products">

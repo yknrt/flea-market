@@ -10,25 +10,41 @@
 <body>
     <header>
         <div class="header">
-            <a href="#" class="header-logo"><img src="{{ asset('logo/logo.svg') }}" alt="logo" class="logo-img"></a>
+            <a href="{{ route('home') }}" class="header-logo"><img src="{{ asset('logo/logo.svg') }}" alt="logo" class="logo-img"></a>
         </div>
     </header>
     <div class="content">
-        <h1 class="content-ttl">会員登録</h1>
-        <form action="" class="content-form">
+        <h1 class="content-ttl">ログイン</h1>
+        <form action="/login" method="post" class="content-form">
+            @csrf
             <div class="form-inner">
-                <label class="form--label">ユーザー名/メールアドレス
-                <input type="text" name="name" class="form--input">
+                <label class="form--label">メールアドレス
+                <input type="text" name="email" class="form--input">
                 </label>
+            </div>
+            <div class="form-error">
+                @error('email')
+                {{ $message }}
+                @enderror
             </div>
             <div class="form-inner">
                 <label class="form--label">パスワード
                 <input type="password" name="password" class="form--input">
                 </label>
             </div>
-            <button class="form-btn">ログインする</button>
+            <div class="form-error">
+                @error('password')
+                {{ $message }}
+                @enderror
+            </div>
+            <div class="form-error">
+                @if ($errors->has('login'))
+                    {{ $errors->first('login') }}
+                @endif
+            </div>
+            <button type="submit" class="form-btn">ログインする</button>
         </form>
-        <a href="#" class="content-link">会員登録はこちら</a>
+        <a href="{{ route('register') }}" class="content-link">会員登録はこちら</a>
     </div>
 </body>
 </html>

@@ -14,19 +14,19 @@ class ListController extends Controller
         if (empty($user)) {
             $exhibitions = Exhibition::all();
         } else {
-            $exhibitions = Exhibition::whereNotIn('user_id', [$user])->all();
+            $exhibitions = Exhibition::whereNotIn('user_id', [$user])->get();
         }
         return view('index', compact('exhibitions'));
     }
 
-    public function mylist()
+    public function myList()
     {
         $user = Auth::id();
         if (empty($user)) {
             return view('auth/login');
         }
         // お気に入りリスト一覧
-        $exhibitions = Exhibition::whereNotIn('user_id', [$user])->all();
+        $exhibitions = Exhibition::whereNotIn('user_id', [$user])->get();
         return view('index', compact('exhibitions'));
     }
 
