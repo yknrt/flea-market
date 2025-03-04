@@ -26,6 +26,10 @@
     margin: 20px auto;
 }
 
+.form-error {
+    color: #FF5555;
+}
+
 .form--label {
     display: block;
     font-weight: bold;
@@ -44,6 +48,7 @@
     color: white;
     border: #FF5555;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .content-link {
@@ -64,15 +69,28 @@
 }
 
 .verify {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
     text-decoration: none;
-    margin: 0 auto;
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #D9D9D9;
+    width: 250px;
+    height: 50px;
+    margin: 50px auto;
 }
 
-
 .resend-email {
+    display: block;
     border: none;
     text-decoration: none;
+    cursor: pointer;
+    color: #0073CC;
+    background-color: white;
+    margin: 0 auto;
 }
 
 /* @media (min-width: 1400px) and (max-width: 1540px) {

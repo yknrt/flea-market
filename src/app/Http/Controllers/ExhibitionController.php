@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Exhibition;
 use App\Models\Category;
 use App\Models\Condition;
+use App\Models\Favorite;
 
 class ExhibitionController extends Controller
 {
@@ -30,5 +31,24 @@ class ExhibitionController extends Controller
     {
         $path = $request->file('image')->store('public/images');
         $img = Storage::url($path);
+    }
+
+    public function storeFavorite(Request $request)
+    {
+        $user = Auth::user();
+        $favorite = Favorite::all();
+        // 既にお気に入り登録済みかチェック
+        if ($user->favorite()->where('exhibition_id', $request->exhibition_id)->exists()) {
+            // 削除
+            Favorite::where('user_id', $user->id)->where('exhibition_id', $request->exhibition_id)->delete();
+        } else {
+            // 登録
+            $form = [
+                'user_id' => $user->id,
+                'exhibition_id' => $request->exhibition_id,
+            ];
+            Favorite::create($form);
+        }
+        return redirect()->back();
     }
 }

@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\ExhibitionController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +19,21 @@ use App\Http\Controllers\ExhibitionController;
 */
 
 Route::get('/', [ListController::class, 'index'])->name('home');
-Route::get('/?page=mylist', [ListController::class, 'mylist'])->name('mylist');
-
 Route::get('/item/:{item_id}', [ExhibitionController::class, 'index'])->name('item');
-Route::get('/sell', [ExhibitionController::class, 'sell'])->name('sell');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/?page=mylist', [ListController::class, 'myList'])->name('myList');
+    Route::get('/mypage', [ProfileController::class, 'index'])->name('mypage');
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile');
+    Route::post('/mypage/profile', [ProfileController::class, 'update']);
+    Route::get('/sell', [ExhibitionController::class, 'sell'])->name('sell');
+    Route::post('/favorite', [ExhibitionController::class, 'storeFavorite']);
+});
+
+Route::middleware('web')->group(function () {
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+        return redirect('/mypage/profile');
+    })->middleware(['auth', 'signed'])->name('verification.verify');
+});
+
+Route::post('/login', [AuthController::class, 'store'])->name('login');

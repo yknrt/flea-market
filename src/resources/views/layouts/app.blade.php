@@ -11,17 +11,24 @@
 <body>
     <header>
         <div class="header">
-            <a href="#" class="header-logo"><img src="{{ asset('logo/logo.svg') }}" alt="logo" class="logo-img"></a>
+            <a href="{{ route('home') }}" class="header-logo"><img src="{{ asset('logo/logo.svg') }}" alt="logo" class="logo-img"></a>
             <input type="text" name="search" class="header-input" placeholder="なにをお探しですか？">
             <nav class="header-nav">
                 @auth
-                    <li><a href="#">ログアウト</a></li>
+                    <li>
+                        <form class="form" action="/logout" method="post">
+                            @csrf
+                            <button class="btn-logout">ログアウト</button>
+                        </form>
+                    </li>
+                    <li><a href="#">マイページ</a></li>
+                    <li><a href="{{ route('sell') }}">出品</a></li>
                 @endauth
                 @guest
-                    <li><a href="#">ログイン</a></li>
+                    <li><a href="{{ route('login') }}">ログイン</a></li>
+                    <li><a href="{{ route('login') }}">マイページ</a></li>
+                    <li><a href="{{ route('login') }}">出品</a></li>
                 @endguest
-                <li><a href="#">マイページ</a></li>
-                <li><a href="{{ route('sell') }}">出品</a></li>
             </nav>
         </div>
     </header>

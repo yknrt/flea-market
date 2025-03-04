@@ -49,6 +49,13 @@
     border-radius: 4px;
 }
 
+.btn-logout {
+    border: none;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
 /* @media (min-width: 1400px) and (max-width: 1540px) {
 } */
 
