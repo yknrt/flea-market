@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
-class RegisterRequest extends FormRequest
+class ProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,21 +24,23 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'image' => ['mimes:jpg,png'],
             'name' => ['required', 'max:20'],
-            'email' => ['required'],
-            'password' => ['required', 'min:8', 'confirmed'],
+            'zip' => ['required', 'size:8'],
+            'address' => ['required']
         ];
     }
 
     public function messages()
     {
         return [
+            'image.mimes' => 'アップロードされたファイルは画像ファイルではありません',
             'name.required' => 'お名前を入力してください',
             'name:max' => 'お名前は20文字以内で入力してください',
-            'email.required' => 'メールアドレスを入力してください',
-            'password.required' => 'パスワードを入力してください',
-            'password.min' => 'パスワードは8文字以上で入力してください',
-            'password.confirmed' => 'パスワードと一致しません',
+            'zip.required' => '郵便番号を入力してください',
+            'zip.size' => 'ハイフンありの8文字で入力してください',
+            'address.required' => '住所を入力してください'
         ];
     }
+
 }

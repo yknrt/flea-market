@@ -7,11 +7,11 @@
     <div class="payment">
         <div class="payment-detail">
             <div class="product">
-                <img src="https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg" alt="商品画像">
+                <img src="{{ asset($item->img) }}" alt="商品画像">
                 <div class="product-txt">
                     <p class="product-name">商品名</p>
                     <div class="product-price">
-                        <p>¥47,000</p>
+                        <p>¥{{ $item->price }}</p>
                     </div>
                 </div>
             </div>
@@ -26,12 +26,12 @@
             <div class="shipping-address">
                 <div class="address-header">
                     <div class="address-ttl">配送先</div>
-                    <a href="#">変更する</a>
+                    <a href="{{ route('address', $item->id) }}">変更する</a>
                 </div>
                 <div class="address-txt">
-                    <p>〒 xxx-xxxx</p>
-                    <p>住所</p>
-                    <p>建物名</p>
+                    <p>〒 {{ $contact->zip ?? contact?->zip ?? $user->profile?->zip }}</p>
+                    <p>{{ $contact->address ?? contact?->address ?? $user->profile?->address }}</p>
+                    <p>{{ $contact->building ?? contact?->building ?? $user->profile?->building }}</p>
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
             <table class="table">
                 <tr class="table__row">
                     <td class="table__header">商品代金</td>
-                    <td class="table__text">¥47,000</td>
+                    <td class="table__text">¥{{ $item->price }}</td>
                 </tr>
                 <tr class="table__row">
                     <td class="table__header">支払い方法</td>
