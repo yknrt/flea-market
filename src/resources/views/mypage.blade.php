@@ -5,9 +5,9 @@
 @endsection
 @section('main')
     <div class="profile">
-        <img src="#" class="profile-picture" id="profile-picture">
-        <label for="profile-picture" class="profile-name">ユーザー名</label>
-        <a href="" class="profile-link">プロフィールを編集</a>
+        <img src="{{ $user->profile->img ?? $user->profile?->img ?? asset('icon/default.svg') }}" class="profile-picture" id="profile-picture">
+        <label for="profile-picture" class="profile-name">{{$user->name}}</label>
+        <a href="{{ route('profile') }}" class="profile-link">プロフィールを編集</a>
     </div>
     <div class="nav">
         <nav class="products-nav">

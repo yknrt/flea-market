@@ -19,20 +19,24 @@
             <div class="product-count">
                 <div class="count-content">
                     <form action="/favorite" method="post">
-                    @csrf
-                        <input type="hidden" name="shop_id" value="{{ $item->id }}">
+                        @csrf
+                        <input type="hidden" name="exhibition_id" value="{{ $item->id }}">
                         <button class="favorite-btn" type="submit">
+                            @if (in_array($item->id, $favoriteItemIds))
+                            <img src="{{ asset('icon/star_on.svg') }}">
+                            @else
                             <img src="{{ asset('icon/star_off.svg') }}">
+                            @endif
                         </button>
-                        <p>3</p>
+                        <p>{{ $count_favorites }}</p>
                     </form>
                 </div>
                 <div class="count-content">
                     <img src="{{ asset('icon/comment.svg') }}" alt="comment">
-                    <p>1</p>
+                    <p>{{ $count_comments }}</p>
                 </div>
             </div>
-            <form action="">
+            <form action="{{ route('purchase', $item->id) }}">
                 <button class="pay-btn">購入手続きへ</button>
             </form>
             <div class="product-description">
@@ -51,21 +55,30 @@
                 </div>
             </div>
             <div class="product-comment">
-                <h2 class="comment-ttl">コメント(1)</h2>
+                <h2 class="comment-ttl">コメント({{ $count_comments }})</h2>
+                @foreach($item->comments as $comment)
                 <div class="comment">
                     <div class="profile-img">
-                        <img src="{{ asset('icon/default.svg') }}" class="profile-picture">
-                        <div class="profile-name">admin</div>
+                        <img src="{{ $comment->user->profile->img ?? $comment->user->profile?->img ?? asset('icon/default.svg') }}" class="profile-picture">
+                        <div class="profile-name">{{ $comment->user->name }}</div>
                     </div>
-                    <p class="comment-text">ここにコメントが入ります。</p>
+                    <p class="comment-text">{{ $comment->comment }}</p>
                 </div>
+                @endforeach
             </div>
-            <form action="">
-            <div class="form-comment">
-                <div class="form--ttl">商品へのコメント</div>
-                <textarea class="form--input" name="comment" rows="5"></textarea>
-                <button class="form--btn">コメントを送信する</button>
-            </div>
+            <form action="/comment" method="post">
+                @csrf
+                <input type="hidden" name="exhibition_id" value="{{ $item->id }}">
+                <div class="form-comment">
+                    <div class="form--ttl">商品へのコメント</div>
+                    <textarea class="form--input" name="comment" rows="5"></textarea>
+                    <div class="form-error">
+                        @error('comment')
+                        {{ $message }}
+                        @enderror
+                    </div>
+                    <button type="submit" class="form--btn">コメントを送信する</button>
+                </div>
             </form>
         </div>
     </div>

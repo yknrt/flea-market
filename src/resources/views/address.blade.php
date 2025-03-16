@@ -4,11 +4,6 @@
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 @endsection
 @section('main')
-        <nav class="products-nav">
-            <li><a href="#">おすすめ</a></li>
-            <li><a href="#">マイリスト</a></li>
-        </nav>
-    </div>
     <div class="content">
         <h1 class="content-ttl">住所の変更</h1>
         <form action="" class="content-form">

@@ -21,7 +21,7 @@
                             <button class="btn-logout">ログアウト</button>
                         </form>
                     </li>
-                    <li><a href="#">マイページ</a></li>
+                    <li><a href="{{ route('mypage') }}">マイページ</a></li>
                     <li><a href="{{ route('sell') }}">出品</a></li>
                 @endauth
                 @guest

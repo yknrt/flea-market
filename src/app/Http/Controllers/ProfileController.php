@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Profile;
+use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
-    public function myPage()
+    public function index()
     {
         $user = Auth::user();
         return view('mypage', compact('user'));
@@ -20,7 +22,7 @@ class ProfileController extends Controller
         return view('profile', compact('user'));
     }
 
-    public function update(Request $request)
+    public function update(ProfileRequest $request)
     {
         $user = Auth::user();
         if ($request->name != $user->name) {
@@ -29,17 +31,32 @@ class ProfileController extends Controller
         }
 
         $profile = Profile::where('user_id', $user->id)->first();
-        dd($profile);
         if (empty($profile)) {
             $form = $request->all();
-            dd($form);
-            $form['$user_id'] = $user->id;
+            unset($form['_token']);
+            $form['user_id'] = $user->id;
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                if ($file->isValid()) {
+                    $path = $request->file('image')->store('public/images/profiles');
+                    $img = Storage::url($path);
+                    $form['img'] = $img;
+                }
+            }
             Profile::create($form);
             return redirect()->route('myList');
         } else {
             $form = $request->all();
-            dd($form);
             unset($form['_token']);
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                if ($file->isValid()) {
+                    $this->delete_image($request->img);
+                    $path = $request->file('image')->store('public/images/profiles');
+                    $img = Storage::url($path);
+                    $form['img'] = $img;
+                }
+            }
             $profile->update($form);
             return redirect()->route('mypage');
         }
@@ -47,4 +64,10 @@ class ProfileController extends Controller
         return back();
     }
 
+    private function delete_image($img){
+        if (!empty($img)) {
+            $replace = str_replace('/storage', 'public', $img);
+            Storage::delete($replace);
+        }
+    }
 }

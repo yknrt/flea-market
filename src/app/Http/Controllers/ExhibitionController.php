@@ -8,16 +8,27 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Exhibition;
 use App\Models\Category;
 use App\Models\Condition;
+use App\Models\Comment;
 use App\Models\Favorite;
+use App\Http\Requests\CommentRequest;
 
 class ExhibitionController extends Controller
 {
     public function index($id)
     {
         $item = Exhibition::find($id);
-        // お気に入り
-        // コメント
-        return view('product', compact('item'));
+        $favorites = $item->favorites;
+        $count_favorites = count($favorites);
+        $comments = $item->comments;
+        $count_comments = count($comments);
+        $user = Auth::user();
+        // ログイン中のユーザーのお気に入り店舗IDを取得
+        if (!empty($user)) {
+            $favoriteItemIds = $user->favorites()->pluck('exhibition_id')->toArray();
+        } else {
+            $favoriteItemIds = [];
+        }
+        return view('product', compact('item', 'count_favorites', 'count_comments', 'favoriteItemIds'));
     }
 
     public function sell()
@@ -33,12 +44,12 @@ class ExhibitionController extends Controller
         $img = Storage::url($path);
     }
 
-    public function storeFavorite(Request $request)
+    public function favorite(Request $request)
     {
         $user = Auth::user();
         $favorite = Favorite::all();
         // 既にお気に入り登録済みかチェック
-        if ($user->favorite()->where('exhibition_id', $request->exhibition_id)->exists()) {
+        if ($user->favorites()->where('exhibition_id', $request->exhibition_id)->exists()) {
             // 削除
             Favorite::where('user_id', $user->id)->where('exhibition_id', $request->exhibition_id)->delete();
         } else {
@@ -49,6 +60,16 @@ class ExhibitionController extends Controller
             ];
             Favorite::create($form);
         }
+        return redirect()->back();
+    }
+
+    public function comment(CommentRequest $request)
+    {
+        Comment::create([
+            'user_id' => Auth::id(),
+            'exhibition_id' => $request->exhibition_id,
+            'comment' => $request->comment,
+        ]);
         return redirect()->back();
     }
 }
