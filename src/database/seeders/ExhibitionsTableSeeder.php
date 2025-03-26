@@ -20,20 +20,19 @@ class ExhibitionsTableSeeder extends Seeder
             'price' => 15000,
             'description' => 'スタイリッシュなデザインのメンズ腕時計',
             'condition_id' => 1,
-            'category_id' => 1,
-            'img' => '/storage/images/Armani+Mens+Clock.jpg',
+            'img' => '/storage/images/items/Armani+Mens+Clock.jpg',
             'created_at' => now(),
             'updated_at' => now()
         ];
         DB::table('exhibitions')->insert($content);
+
         $content = [
             'user_id' => 2,
             'name' => 'HDD',
             'price' => 5000,
             'description' => '高速で信頼性の高いハードディスク',
             'condition_id' => 2,
-            'category_id' => 2,
-            'img' => '/storage/images/HDD+Hard+Disk.jpg',
+            'img' => '/storage/images/items/HDD+Hard+Disk.jpg',
             'created_at' => now(),
             'updated_at' => now()
         ];
@@ -44,8 +43,7 @@ class ExhibitionsTableSeeder extends Seeder
             'price' => 300,
             'description' => '新鮮な玉ねぎ3束のセット',
             'condition_id' => 3,
-            'category_id' => 2,
-            'img' => '/storage/images/iLoveIMG+d.jpg',
+            'img' => '/storage/images/items/iLoveIMG+d.jpg',
             'created_at' => now(),
             'updated_at' => now()
         ];
@@ -56,8 +54,7 @@ class ExhibitionsTableSeeder extends Seeder
             'price' => 4000,
             'description' => 'クラシックなデザインの革靴',
             'condition_id' => 4,
-            'category_id' => 2,
-            'img' => '/storage/images/Leather+Shoes+Product+Photo.jpg',
+            'img' => '/storage/images/items/Leather+Shoes+Product+Photo.jpg',
             'created_at' => now(),
             'updated_at' => now()
         ];
@@ -69,8 +66,7 @@ class ExhibitionsTableSeeder extends Seeder
             'price' => 45000,
             'description' => '高性能なノートパソコン',
             'condition_id' => 1,
-            'category_id' => 2,
-            'img' => '/storage/images/Living+Room+Laptop.jpg',
+            'img' => '/storage/images/items/Living+Room+Laptop.jpg',
             'created_at' => now(),
             'updated_at' => now()
         ];
@@ -81,8 +77,7 @@ class ExhibitionsTableSeeder extends Seeder
             'price' => 8000,
             'description' => '高音質のレコーディング用マイク',
             'condition_id' => 2,
-            'category_id' => 13,
-            'img' => '/storage/images/Music+Mic+4632231.jpg',
+            'img' => '/storage/images/items/Music+Mic+4632231.jpg',
             'created_at' => now(),
             'updated_at' => now()
         ];
@@ -93,8 +88,7 @@ class ExhibitionsTableSeeder extends Seeder
             'price' => 3500,
             'description' => 'おしゃれなショルダーバッグ',
             'condition_id' => 3,
-            'category_id' => 1,
-            'img' => '/storage/images/Purse+fashion+pocket.jpg',
+            'img' => '/storage/images/items/Purse+fashion+pocket.jpg',
             'created_at' => now(),
             'updated_at' => now()
         ];
@@ -105,8 +99,7 @@ class ExhibitionsTableSeeder extends Seeder
             'price' => 500,
             'description' => '使いやすいタンブラー',
             'condition_id' => 4,
-            'category_id' => 10,
-            'img' => '/storage/images/Tumbler+souvenir.jpg',
+            'img' => '/storage/images/items/Tumbler+souvenir.jpg',
             'created_at' => now(),
             'updated_at' => now()
         ];
@@ -117,8 +110,7 @@ class ExhibitionsTableSeeder extends Seeder
             'price' => 4000,
             'description' => '手動のコーヒーミル',
             'condition_id' => 1,
-            'category_id' => 10,
-            'img' => '/storage/images/Waitress+with+Coffee+Grinder.jpg',
+            'img' => '/storage/images/items/Waitress+with+Coffee+Grinder.jpg',
             'created_at' => now(),
             'updated_at' => now()
         ];
@@ -130,8 +122,7 @@ class ExhibitionsTableSeeder extends Seeder
             'price' => 2500,
             'description' => '便利なメイクアップセット',
             'condition_id' => 2,
-            'category_id' => 6,
-            'img' => '/storage/images/外出メイクアップセット.jpg',
+            'img' => '/storage/images/items/外出メイクアップセット.jpg',
             'created_at' => now(),
             'updated_at' => now()
         ];

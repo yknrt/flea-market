@@ -5,15 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Exhibition;
 use App\Models\Profile;
 use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $user = Auth::user();
-        return view('mypage', compact('user'));
+        $tab = $request->query('tab');
+        if ($tab == 'sell') {
+            $user = Auth::user();
+            $exhibitions = $user->exhibitions;
+        } else {
+            $user = Auth::user();
+            $exhibitions = $user->exhibitions;
+        }
+        return view('mypage', compact('user', 'exhibitions'));
     }
 
     public function edit()

@@ -47,7 +47,9 @@
                 <h2>商品の情報</h2>
                 <div class="info-category">
                     <div class="info-ttl">カテゴリー</div>
-                    <div class="category-tag">{{ $item->category->category }}</div>
+                    @foreach($item->categories as $category)
+                    <div class="category-tag">{{ $category->category }}</div>
+                    @endforeach
                 </div>
                 <div class="info-condition">
                     <div class="info-ttl">商品の状態</div>

@@ -13,4 +13,9 @@ class Category extends Model
         'id',
     ];
 
+    public function exhibitions()
+    {
+        return $this->belongsToMany(Exhibition::class);
+    }
+
 }

@@ -82,6 +82,10 @@
     font-size: 25px;
 }
 
+.active a {
+    color: #FF0000;
+}
+
 @media (min-width: 768px) and (max-width: 850px) {
     .profile-picture {
         margin: 0 5% 0 10%;

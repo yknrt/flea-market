@@ -11,6 +11,7 @@ use App\Models\Condition;
 use App\Models\Comment;
 use App\Models\Favorite;
 use App\Http\Requests\CommentRequest;
+use App\Http\Requests\ExhibitionRequest;
 
 class ExhibitionController extends Controller
 {
@@ -38,10 +39,20 @@ class ExhibitionController extends Controller
         return view('exhibition', compact('categories', 'conditions'));
     }
 
-    public function store(Request $request)
+    public function store(ExhibitionRequest $request)
     {
-        $path = $request->file('image')->store('public/images');
+        $form = $request->all();
+        unset($form['_token'], $form['condition'], $form['categories'], $form['image']);
+        $user = Auth::id();
+        $form['user_id'] = $user;
+        $form['condition_id'] = $request->condition;
+        $path = $request->file('image')->store('public/images/items');
         $img = Storage::url($path);
+        $form['img'] = $img;
+        $item = Exhibition::create($form);
+        $categories = $request->input('categories', []);
+        $item->categories()->attach($categories);
+        return redirect()->route('mypage');
     }
 
     public function favorite(Request $request)

@@ -29,9 +29,9 @@
                     <a href="{{ route('address', $item->id) }}">変更する</a>
                 </div>
                 <div class="address-txt">
-                    <p>〒 {{ $contact->zip ?? contact?->zip ?? $user->profile?->zip }}</p>
-                    <p>{{ $contact->address ?? contact?->address ?? $user->profile?->address }}</p>
-                    <p>{{ $contact->building ?? contact?->building ?? $user->profile?->building }}</p>
+                    <p>〒 {{ $contact->zip ?? $contact?->zip ?? $user->profile?->zip }}</p>
+                    <p>{{ $contact->address ?? $contact?->address ?? $user->profile?->address }}</p>
+                    <p>{{ $contact->building ?? $contact?->building ?? $user->profile?->building }}</p>
                 </div>
             </div>
         </div>
