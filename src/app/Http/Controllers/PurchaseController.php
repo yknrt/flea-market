@@ -12,11 +12,21 @@ class PurchaseController extends Controller
     {
         $item = Exhibition::find($id);
         $user = Auth::user();
-        return view('purchase', compact('item', 'user'));
+        $contact = [];
+        return view('purchase', compact('item', 'user', 'contact'));
     }
 
     public function address($id)
     {
-        return view('address');
+        $item = Exhibition::find($id);
+        return view('address', compact('item'));
+    }
+
+    public function update(Request $request)
+    {
+        $contact = $request->all();
+        unset($contact['_token']);
+
+        return back()->withInput();
     }
 }

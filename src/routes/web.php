@@ -20,17 +20,18 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::get('/', [ListController::class, 'index'])->name('home');
-Route::get('/?page=mylist', [ListController::class, 'myList'])->name('myList');
 Route::get('/item/:{item_id}', [ExhibitionController::class, 'index'])->name('item');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [ProfileController::class, 'index'])->name('mypage');
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::post('/mypage/profile', [ProfileController::class, 'update']);
     Route::get('/sell', [ExhibitionController::class, 'sell'])->name('sell');
+    Route::post('/sell/exhibition', [ExhibitionController::class, 'store']);
     Route::post('/favorite', [ExhibitionController::class, 'favorite']);
     Route::post('/comment', [ExhibitionController::class, 'comment']);
     Route::get('/purchase/:{item_id}', [PurchaseController::class, 'index'])->name('purchase');
     Route::get('/purchase/address/:{item_id}', [PurchaseController::class, 'address'])->name('address');
+    Route::get('/purchase/address/:{item_id}/update', [PurchaseController::class, 'update'])->name('address.update');
 });
 
 Route::middleware('web')->group(function () {

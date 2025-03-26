@@ -23,9 +23,9 @@ class Exhibition extends Model
         return $this->belongsTo(Condition::class);
     }
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class);
     }
 
     public function favorites()

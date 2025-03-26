@@ -8,26 +8,29 @@ use App\Models\Exhibition;
 
 class ListController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $user = Auth::id();
-        if (empty($user)) {
-            $exhibitions = Exhibition::all();
+        $tab = $request->query('tab', 'all');
+        $userId = Auth::id();
+        if ($tab == 'all') {
+            if (empty($user)) {
+                $exhibitions = Exhibition::all();
+            } else {
+                $exhibitions = Exhibition::whereNotIn('user_id', [$userId])->get();
+            }
         } else {
-            $exhibitions = Exhibition::whereNotIn('user_id', [$user])->get();
+            if (empty($userId)) {
+                $exhibitions = [];
+            } else {
+                $user = Auth::user();
+                $exhibitions = [];
+                $favorites = $user->favorites;
+                foreach ($favorites as $favorite) {
+                    $exhibition = Exhibition::find($favorite->exhibition_id);
+                    array_push($exhibitions, $exhibition);
+                }
+            }
         }
         return view('index', compact('exhibitions'));
     }
-
-    public function myList()
-    {
-        $user = Auth::id();
-        if (empty($user)) {
-            return view('auth/login');
-        }
-        // お気に入りリスト一覧
-        $exhibitions = Exhibition::whereNotIn('user_id', [$user])->get();
-        return view('index', compact('exhibitions'));
-    }
-
 }

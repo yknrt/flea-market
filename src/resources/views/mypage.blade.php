@@ -11,28 +11,24 @@
     </div>
     <div class="nav">
         <nav class="products-nav">
-            <li><a href="#">出品した商品</a></li>
-            <li><a href="#">購入した商品</a></li>
+            <li @class(['active' => request()->query('tab') === 'sell'])>
+                <a href="{{ route('mypage', ['tab' => 'sell']) }}">出品した商品</a>
+            </li>
+            <li @class(['active' => request()->query('tab') === 'buy'])>
+                <a href="{{ route('mypage', ['tab' => 'buy']) }}">購入した商品</a>
+            </li>
         </nav>
     </div>
     <div class="products">
+        @foreach($exhibitions as $exhibition)
         <div class="button-container">
-            <button class="image-button">
-                <img class="product-img" src="https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg" alt="商品画像">
-            </button>
-            <div class="button-label">商品名</div>
+            <form action="{{ route('item', $exhibition->id) }}">
+                <button class="image-button">
+                    <img class="product-img" src="{{ asset($exhibition->img) }}" alt="商品画像">
+                </button>
+            </form>
+            <div class="button-label">{{ $exhibition->name }}</div>
         </div>
-        <div class="button-container">
-            <button class="image-button">
-                <img class="product-img" src="https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg" alt="商品画像">
-            </button>
-            <div class="button-label">商品名</div>
-        </div>
-        <div class="button-container">
-            <button class="image-button">
-                <img class="product-img" src="https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg" alt="商品画像">
-            </button>
-            <div class="button-label">商品名</div>
-        </div>
+        @endforeach
     </div>
 @endsection

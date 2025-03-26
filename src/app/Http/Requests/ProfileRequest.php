@@ -3,8 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 
 class ProfileRequest extends FormRequest
 {
@@ -36,7 +34,7 @@ class ProfileRequest extends FormRequest
         return [
             'image.mimes' => 'アップロードされたファイルは画像ファイルではありません',
             'name.required' => 'お名前を入力してください',
-            'name:max' => 'お名前は20文字以内で入力してください',
+            'name.max' => 'お名前は20文字以内で入力してください',
             'zip.required' => '郵便番号を入力してください',
             'zip.size' => 'ハイフンありの8文字で入力してください',
             'address.required' => '住所を入力してください'
