@@ -19,7 +19,8 @@ class ProfileController extends Controller
             $exhibitions = $user->exhibitions;
         } else {
             $user = Auth::user();
-            $exhibitions = $user->exhibitions;
+            $purchaseExhibitionIds = $user->purchases->pluck('exhibition_id');
+            $exhibitions = Exhibition::whereIn('id', $purchaseExhibitionIds)->get();
         }
         return view('mypage', compact('user', 'exhibitions'));
     }
@@ -52,7 +53,7 @@ class ProfileController extends Controller
                 }
             }
             Profile::create($form);
-            return redirect()->route('myList');
+            return redirect()->route('home', ['tab' => 'mylist']);
         } else {
             $form = $request->all();
             unset($form['_token']);

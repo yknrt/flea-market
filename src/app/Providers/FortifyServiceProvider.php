@@ -10,10 +10,6 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use Laravel\Fortify\Contracts\LogoutResponse;
-use App\Http\Requests\LoginRequest;
-use Laravel\Fortify\Http\Requests\LoginRequest as FortifyLoginRequest;
-use App\Actions\Fortify\CustomLoginAction;
-use App\Models\User;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -61,21 +57,9 @@ class FortifyServiceProvider extends ServiceProvider
             };
         });
 
-        // $this->app->bind(FortifyLoginRequest::class, LoginRequest::class);
-
         Fortify::loginView(function () {
             return view('auth.login');
         });
-
-        // Fortifyのログイン処理を独自のLoginRequestで設定
-        // Fortify::authenticateUsing(function (LoginRequest $request) {
-        //     $user = User::where('email', $request->email)->first();
-        //     if ($user && Hash::check($request->password, $user->password)) {
-        //         return $user;
-        //     }
-
-        //     return null;
-        // });
 
         // ログイン後のリダイレクト先
         Fortify::redirects('login', '/?page=mylist');

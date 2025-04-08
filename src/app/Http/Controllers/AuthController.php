@@ -6,6 +6,9 @@ use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Pipeline;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 use Laravel\Fortify\Actions\AttemptToAuthenticate;
 use Laravel\Fortify\Actions\CanonicalizeUsername;
 use Laravel\Fortify\Actions\EnsureLoginIsNotThrottled;
@@ -23,6 +26,14 @@ class AuthController extends Controller
         return $this->loginPipeline($request)->then(function ($request) {
             return app(LoginResponse::class);
         });
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        Session::flush();
+        Cache::flush();
+        return redirect()->route('home');
     }
 
     protected function loginPipeline(LoginRequest $request)

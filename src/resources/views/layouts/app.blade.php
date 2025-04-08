@@ -12,7 +12,9 @@
     <header>
         <div class="header">
             <a href="{{ route('home') }}" class="header-logo"><img src="{{ asset('logo/logo.svg') }}" alt="logo" class="logo-img"></a>
-            <input type="text" name="search" class="header-input" placeholder="なにをお探しですか？">
+            <form action="{{ request()->query('tab') ? route('home', ['tab' => 'mylist']) : route('home') }}" class="header-form">
+                <input type="text" name="search" class="header-input" placeholder="なにをお探しですか？" value="{{ session('search') ? session('search') : request('search') }}">
+            </form>
             <nav class="header-nav">
                 @auth
                     <li>
