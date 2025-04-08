@@ -1,7 +1,7 @@
 # coachtech フリマ
 
 ある企業が開発した独自のフリマアプリ
-![top](./readme/Rese.png)
+![top](./readme/flea_market.png)
 
 ## 作成した目的
 
