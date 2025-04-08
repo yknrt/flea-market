@@ -6,7 +6,7 @@
 @section('main')
     <div class="content">
         <h1 class="content-ttl">住所の変更</h1>
-        <form action="{{ route('address.update', $item->id) }}" class="content-form">
+        <form action="{{ route('address.update') }}" class="content-form">
             <div class="form-inner">
                 <label class="form--label">郵便番号
                 <input type="text" name="zip" class="form--input">

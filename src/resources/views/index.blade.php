@@ -18,7 +18,9 @@
                     <img class="product-img" src="{{ asset($exhibition->img) }}" alt="商品画像">
                 </button>
             </form>
-            <div class="button-label">{{ $exhibition->name }}</div>
+            <div class="button-label">
+                {{ $exhibition->name }}<span class="sold-label">{{ $exhibition->purchase ? '    Sold' : '' }}</span>
+            </div>
         </div>
         @endforeach
     </div>

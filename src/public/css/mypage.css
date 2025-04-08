@@ -50,7 +50,7 @@
     text-decoration: none;
     vertical-align: middle;
     font-size: 24px;
-    color: black;
+    /* color: black; */
 }
 
 .products {
@@ -83,7 +83,7 @@
 }
 
 .active a {
-    color: #FF0000;
+    color: #FF5555;
 }
 
 @media (min-width: 768px) and (max-width: 850px) {

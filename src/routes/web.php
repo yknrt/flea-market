@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use App\Http\Controllers\ListController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ExhibitionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
@@ -19,19 +19,22 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', [ListController::class, 'index'])->name('home');
-Route::get('/item/:{item_id}', [ExhibitionController::class, 'index'])->name('item');
+Route::get('/', [ItemController::class, 'index'])->name('home');
+Route::get('/item/:{item_id}', [ItemController::class, 'productView'])->name('item');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [ProfileController::class, 'index'])->name('mypage');
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile');
     Route::post('/mypage/profile', [ProfileController::class, 'update']);
-    Route::get('/sell', [ExhibitionController::class, 'sell'])->name('sell');
-    Route::post('/sell/exhibition', [ExhibitionController::class, 'store']);
-    Route::post('/favorite', [ExhibitionController::class, 'favorite']);
-    Route::post('/comment', [ExhibitionController::class, 'comment']);
+    Route::get('/sell', [ItemController::class, 'sell'])->name('sell');
+    Route::post('/sell/exhibition', [ItemController::class, 'store']);
+    Route::post('/favorite', [ItemController::class, 'favorite']);
+    Route::post('/comment', [ItemController::class, 'comment']);
     Route::get('/purchase/:{item_id}', [PurchaseController::class, 'index'])->name('purchase');
     Route::get('/purchase/address/:{item_id}', [PurchaseController::class, 'address'])->name('address');
-    Route::get('/purchase/address/:{item_id}/update', [PurchaseController::class, 'update'])->name('address.update');
+    Route::get('/purchase/address/update', [PurchaseController::class, 'update'])->name('address.update');
+    Route::post('/purchase/checkout', [PurchaseController::class, 'checkout']);
+    Route::get('/success', [PaymentController::class, 'success'])->name('payment.success');
+    Route::get('/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
 });
 
 Route::middleware('web')->group(function () {
@@ -42,3 +45,6 @@ Route::middleware('web')->group(function () {
 });
 
 Route::post('/login', [AuthController::class, 'store'])->name('login');
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});

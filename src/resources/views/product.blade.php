@@ -13,7 +13,7 @@
             <p class="product-brand">{{ $item->brand }}</p>
             <div class="product-price">
                 <span>¥</span>
-                <span>{{ $item->price }}</span>
+                <span>{{ number_format($item->price) }}</span>
                 <span>(税込)</span>
             </div>
             <div class="product-count">
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <form action="{{ route('purchase', $item->id) }}">
-                <button class="pay-btn">購入手続きへ</button>
+                <button class="pay-btn" @disabled($item->purchase) >{{ $item->purchase ? "Sold" : "購入手続きへ" }}</button>
             </form>
             <div class="product-description">
                 <h2>商品説明</h2>

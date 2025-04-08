@@ -75,6 +75,12 @@
     cursor: pointer;
 }
 
+.pay-btn:disabled {
+    cursor: default;
+    background-color: gray;
+    border-color: gray;
+}
+
 .product-description {
     margin-bottom: 40px;
 }

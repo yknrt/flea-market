@@ -5,17 +5,49 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Exhibition;
-use App\Models\Category;
-use App\Models\Condition;
-use App\Models\Comment;
-use App\Models\Favorite;
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\ExhibitionRequest;
+use App\Models\Category;
+use App\Models\Comment;
+use App\Models\Condition;
+use App\Models\Exhibition;
+use App\Models\Favorite;
+use Session;
 
-class ExhibitionController extends Controller
+class ItemController extends Controller
 {
-    public function index($id)
+    public function index(Request $request)
+    {
+        $tab = $request->query('tab', 'all');
+        $userId = Auth::id();
+        $query = Exhibition::query();
+        if ($request->has('search')) {
+            $keyword = $request->search;
+            Session::forget('search');
+        } elseif (Session::get('search')) {
+            $keyword = Session::get('search');
+        } else {
+            $keyword = '';
+        }
+
+        if ($tab === 'all') {
+            $query = $this->searchKeyword($query, $keyword);
+        } else {
+            if ($userId) {
+                $user = Auth::user();
+                $favoriteExhibitionIds = $user->favorites->pluck('exhibition_id'); // お気に入りのIDリスト取得
+                $query = $this->searchKeyword($query, $keyword);
+                $query->whereIn('id', $favoriteExhibitionIds);
+            } else {
+                $query->whereRaw('1 = 0'); // ユーザーがログインしていない場合、結果を空にする
+            }
+        }
+        $exhibitions = $query->get();
+
+        return view('index', compact('exhibitions'));
+    }
+
+    public function productView($id)
     {
         $item = Exhibition::find($id);
         $favorites = $item->favorites;
@@ -84,4 +116,16 @@ class ExhibitionController extends Controller
         ]);
         return redirect()->back();
     }
+
+    private function searchKeyword($query, $keyword)
+    {
+        $userId = Auth::id();
+        if (!empty($keyword)) {
+            $query->where('name', 'like', '%' . $keyword . '%');
+            session(['search' => $keyword]);
+        }
+        $query->where('user_id', '!=', $userId);
+        return $query;
+    }
+
 }

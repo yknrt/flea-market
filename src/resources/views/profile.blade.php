@@ -51,7 +51,7 @@
             </div>
             <div class="form-inner">
                 <label class="form--label">建物名
-                    <input type="password" name="building" class="form--input" value="{{ $user->profile->building ?? $user->profile?->building ?? '' }}">
+                    <input type="text" name="building" class="form--input" value="{{ $user->profile->building ?? $user->profile?->building ?? '' }}">
                 </label>
             </div>
             <button type="submit" class="form-btn">更新する</button>

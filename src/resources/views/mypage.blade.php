@@ -11,10 +11,10 @@
     </div>
     <div class="nav">
         <nav class="products-nav">
-            <li @class(['active' => request()->query('tab') === 'sell'])>
+            <li class="{{ request()->query('tab') === 'sell' ? 'active' : '' }}">
                 <a href="{{ route('mypage', ['tab' => 'sell']) }}">出品した商品</a>
             </li>
-            <li @class(['active' => request()->query('tab') === 'buy'])>
+            <li class="{{ request()->query('tab') === 'buy' ? 'active' : '' }}">
                 <a href="{{ route('mypage', ['tab' => 'buy']) }}">購入した商品</a>
             </li>
         </nav>
