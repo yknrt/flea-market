@@ -21,10 +21,6 @@
 
 プロフィール画像保存：/src/storage/app/public/images/profiles/
 
-## 機能一覧
-
-案件シートの機能要件ページを参照
-
 ## 使用技術
 
 ・PHP 8.1.29
