@@ -22,6 +22,11 @@
                     <option value="konbini">コンビニ払い</option>
                     <option value="card">カード払い</option>
                 </select>
+                <div class="form-error">
+                    @error('method')
+                    {{ $message }}
+                    @enderror
+                </div>
             </div>
             <div class="shipping-address">
                 <div class="address-header">

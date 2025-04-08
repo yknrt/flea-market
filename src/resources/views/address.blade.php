@@ -12,10 +12,20 @@
                 <input type="text" name="zip" class="form--input">
                 </label>
             </div>
+            <div class="form-error">
+                @error('zip')
+                {{ $message }}
+                @enderror
+            </div>
             <div class="form-inner">
                 <label class="form--label">住所
                 <input type="text" name="address" class="form--input">
                 </label>
+            </div>
+            <div class="form-error">
+                @error('address')
+                {{ $message }}
+                @enderror
             </div>
             <div class="form-inner">
                 <label class="form--label">建物名

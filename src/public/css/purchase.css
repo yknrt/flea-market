@@ -137,6 +137,10 @@
     cursor: pointer;
 }
 
+.form-error {
+    color: #FF5555;
+}
+
 @media (min-width: 768px) and (max-width: 850px) {
     .select {
         width: 50%;

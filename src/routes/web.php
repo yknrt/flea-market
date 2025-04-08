@@ -33,8 +33,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/purchase/address/:{item_id}', [PurchaseController::class, 'address'])->name('address');
     Route::get('/purchase/address/update', [PurchaseController::class, 'update'])->name('address.update');
     Route::post('/purchase/checkout', [PurchaseController::class, 'checkout']);
-    Route::get('/success', [PaymentController::class, 'success'])->name('payment.success');
-    Route::get('/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
 });
 
 Route::middleware('web')->group(function () {
