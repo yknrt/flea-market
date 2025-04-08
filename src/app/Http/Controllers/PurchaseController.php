@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Exhibition;
 use App\Models\Purchase;
@@ -66,20 +65,10 @@ class PurchaseController extends Controller
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => route('payment.success'),
-            'cancel_url' => route('payment.cancel'),
+            'success_url' => route('mypage', ['tab' => 'buy']),
+            'cancel_url' => route('purchase', ['item_id' => $request->item]),
         ]);
 
         return redirect($session->url);
-    }
-
-    public function success()
-    {
-        return 'お支払いが完了しました。';
-    }
-
-    public function cancel()
-    {
-        return 'お支払いがキャンセルされました。';
     }
 }
