@@ -18,6 +18,7 @@
 ### ストレージ
 
 商品画像保存：/src/storage/app/public/images/items/
+
 プロフィール画像保存：/src/storage/app/public/images/profiles/
 
 ## 機能一覧
@@ -27,9 +28,13 @@
 ## 使用技術
 
 ・PHP 8.1.29
+
 ・Laravel 10.48.28
+
 ・phpMyAdmin 5.2.1
+
 ・MySQL 8.0.26
+
 ・nginx 1.21.1
 
 ## ER 図
@@ -43,6 +48,7 @@
 1-1．git clone リンク
 
 1-2．DockerDesktop アプリを立ち上げる
+
 MySQL は、docker-compose.yml ファイルを編集する。
 
 1-3．docker-compose up -d --build
@@ -109,5 +115,7 @@ php artisan storage:link
 ## 会員情報登録後のページ遷移について
 
 案件シートのテストケース一覧では、会員情報登録後にログイン画面に遷移するとなっている。
+
 しかし、画面設計ではメール認証誘導画面に遷移することになっている。
+
 本アプリでは、会員情報登録後にメール認証誘導画面に遷移するようにした。
