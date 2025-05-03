@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Exhibition;
 use App\Models\Profile;
+use App\Models\Dealing;
+use App\Models\Message;
+use App\Models\Review;
 use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
@@ -14,15 +17,34 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         $tab = $request->query('tab');
+        $user = Auth::user();
+
+        #未読メッセージの取得
+        $dealingBuyerIds = $user->dealings->pluck('id');
+        $dealingSellerIds = $user->exhibitions->flatMap->dealings->pluck('id');
+        $dealings = Dealing::whereIn('id', $dealingBuyerIds)->orWhereIn('id', $dealingSellerIds)->get();
+        $notReadMessage = $dealings->flatMap->messages->where('is_read', 0)->where('user_id', '!=', $user->id)->pluck('dealing_id')->toArray();
+
         if ($tab == 'sell') {
-            $user = Auth::user();
             $exhibitions = $user->exhibitions;
-        } else {
-            $user = Auth::user();
+        } elseif ($tab == 'buy') {
             $purchaseExhibitionIds = $user->purchases->pluck('exhibition_id');
             $exhibitions = Exhibition::whereIn('id', $purchaseExhibitionIds)->get();
+        } else {
+            $dealingId = $dealings->pluck('id')->toArray();
+            $arrReviewedId = Review::whereIn('dealing_id', $dealingId)->where('user_id', $user->id)->pluck('dealing_id')->toArray();
+
+            $exhibitions = $dealings->whereNotIn('id', $arrReviewedId)->flatMap->messages->sortByDesc('created_at')->unique('dealing_id')->values()->all();
         }
-        return view('mypage', compact('user', 'exhibitions'));
+
+        $rating = $dealings->where('completed', 1)->flatMap->reviews->where('user_id', '!=', $user->id)->pluck('score')->toArray();
+        if (count($rating)) {
+            $average = round(array_sum($rating) / count($rating));
+        } else {
+            $average = 0;
+        }
+
+        return view('mypage', compact('user', 'notReadMessage', 'exhibitions', 'average'));
     }
 
     public function edit()

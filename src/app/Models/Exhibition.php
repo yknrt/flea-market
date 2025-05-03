@@ -42,4 +42,9 @@ class Exhibition extends Model
     {
         return $this->hasOne(Purchase::class);
     }
+
+    public function dealings()
+    {
+        return $this->hasMany(Dealing::class);
+    }
 }

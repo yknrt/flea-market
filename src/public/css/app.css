@@ -68,14 +68,27 @@
         margin: auto 0 auto 15px;
     }
 
-    .header-input {
+    .header-form {
         width: 25%;
     }
+
+    .header-input {
+        margin-left: 10px;
+        margin-right: 10px;
+        width: 100%;
+    }
+
     .header-nav li {
+        display: block;
+        height: auto;
         margin: auto 0 auto 10px;
     }
 
     .header-nav li:last-child {
-        margin-right: 15px;
+        margin-right: 10px;
+    }
+
+    .header-nav li a {
+        font-size: 12px;
     }
 }

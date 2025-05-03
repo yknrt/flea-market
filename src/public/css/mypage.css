@@ -19,6 +19,27 @@
     font-weight: bold;
 }
 
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+}
+
+.rating-false,
+.rating-true {
+    display: block;
+    font-size: 20px;
+    padding: 0 10px;
+}
+
+.rating-false i {
+    color: gray;
+}
+
+.rating-true {
+    color: #FFF048;
+}
+
 .profile-link {
     display: block;
     border: 2px solid #FF5555;
@@ -52,6 +73,21 @@
     font-size: 24px;
 }
 
+.products-nav li:last-child {
+    display: flex;
+}
+
+.transaction-num {
+    display: block;
+    background-color: #FF5555;
+    color: white;
+    border-radius: 10px;
+    margin: 5px 0 5px 5px;
+    width: 25px;
+    line-height: 20px;
+    text-align: center;
+}
+
 .products {
     display: flex;
     margin: 5%;
@@ -70,11 +106,27 @@
     border: none;
     padding: 0;
     cursor: pointer;
+    position: relative;
 }
 
 .product-img {
+    display: block;
     max-width: 100%;
     background-color: #5F5F5F;
+}
+
+.overlay-text {
+    position: absolute;
+    display: block;
+    width: 20px;
+    line-height: 20px;
+    text-align: center;
+    top: 0;
+    left: 0;
+    transform: translate(0, -50%);
+    color: white;
+    background-color: #FF5555;
+    border-radius: 50%;
 }
 
 .button-label {

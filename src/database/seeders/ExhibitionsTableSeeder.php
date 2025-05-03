@@ -27,7 +27,7 @@ class ExhibitionsTableSeeder extends Seeder
         DB::table('exhibitions')->insert($content);
 
         $content = [
-            'user_id' => 2,
+            'user_id' => 1,
             'name' => 'HDD',
             'price' => 5000,
             'description' => '高速で信頼性の高いハードディスク',
@@ -38,7 +38,7 @@ class ExhibitionsTableSeeder extends Seeder
         ];
         DB::table('exhibitions')->insert($content);
         $content = [
-            'user_id' => 3,
+            'user_id' => 1,
             'name' => '玉ねぎ3束',
             'price' => 300,
             'description' => '新鮮な玉ねぎ3束のセット',
@@ -60,7 +60,7 @@ class ExhibitionsTableSeeder extends Seeder
         ];
         DB::table('exhibitions')->insert($content);
         $content = [
-            'user_id' => 2,
+            'user_id' => 1,
             'name' => 'ノートPC',
             'brand' => 'SONY',
             'price' => 45000,
@@ -83,7 +83,7 @@ class ExhibitionsTableSeeder extends Seeder
         ];
         DB::table('exhibitions')->insert($content);
         $content = [
-            'user_id' => 1,
+            'user_id' => 2,
             'name' => 'ショルダーバッグ',
             'price' => 3500,
             'description' => 'おしゃれなショルダーバッグ',
@@ -94,7 +94,7 @@ class ExhibitionsTableSeeder extends Seeder
         ];
         DB::table('exhibitions')->insert($content);
         $content = [
-            'user_id' => 3,
+            'user_id' => 2,
             'name' => 'タンブラー',
             'price' => 500,
             'description' => '使いやすいタンブラー',
@@ -105,7 +105,7 @@ class ExhibitionsTableSeeder extends Seeder
         ];
         DB::table('exhibitions')->insert($content);
         $content = [
-            'user_id' => 3,
+            'user_id' => 2,
             'name' => 'コーヒーミル',
             'price' => 4000,
             'description' => '手動のコーヒーミル',
@@ -116,7 +116,7 @@ class ExhibitionsTableSeeder extends Seeder
         ];
         DB::table('exhibitions')->insert($content);
         $content = [
-            'user_id' => 1,
+            'user_id' => 2,
             'name' => 'メイクセット',
             'brand' => '資生堂',
             'price' => 2500,
