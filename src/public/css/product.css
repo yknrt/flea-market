@@ -80,6 +80,15 @@
     border-color: gray;
 }
 
+.chat-btn {
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    width: 70%;
+    height: 30px;
+    cursor: pointer;
+}
+
 .product-description {
     margin-bottom: 40px;
 }

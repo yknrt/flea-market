@@ -1,0 +1,348 @@
+.header {
+    height: 7vh;
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+}
+
+.header-logo {
+    display: block;
+    margin: auto 20px auto 30px;
+}
+
+.grid-parent {
+    display: grid;
+    height: 93vh;
+    grid-template-rows: 1fr 2.5fr 4fr 0.8fr;
+    grid-template-columns: 1fr 5fr;
+}
+
+.side {
+    grid-column: 1/2;
+    grid-row: 1/5;
+    overflow-y: auto;
+    background-color: #868686;
+}
+
+.side-title {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.side-link {
+    display: block;
+    width: 60%;
+    border: 1px solid #EEEFEB;
+    background-color: #EEEFEB;
+    color: black;
+    margin: 30px auto;
+    line-height: 40px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.ttl {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.ttl-img {
+    display: block;
+    width: 80px;
+    height: 80px;
+    margin: 0 30px;
+    border-radius: 50%;
+    background-color: #FF8282;
+    object-fit: cover;
+}
+
+.ttl-txt {
+    display: block;
+    width: 70%;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.complete-btn {
+    width: 150px;
+    line-height: 40px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    background-color: #FF8282;
+    border: 1px solid #FF8282;
+    border-radius: 30px;
+    margin-left: auto;
+    margin-right: 50px;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.item {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.item-img {
+    display: block;
+    width: 200px;
+    height: 200px;
+    margin: 0 30px;
+    object-fit: contain;
+}
+
+.item-name {
+    font-weight: bold;
+    font-size: 36px;
+}
+
+.item-price {
+    font-size: 24px;
+}
+
+.chat {
+    grid-column: 2/3;
+    grid-row: 3/4;
+    overflow-y: auto;
+    padding: 0 20px;
+    position: relative;
+}
+
+.your-message,
+.my-message {
+    display: block;
+    width: 40%;
+    margin-top: 20px;
+}
+
+.my-message {
+    margin-left: auto;
+    text-align: right;
+}
+
+.my-img,
+.your-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.my-chat-img,
+.your-chat-img {
+    display: block;
+    max-width: 200px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.my-img {
+    background-color: gray;
+}
+
+.my-chat-img {
+    margin-top: 10px;
+    margin-left: auto;
+}
+
+.your-img {
+    background-color: #FF8282
+}
+
+.user-name {
+    font-weight: bold;
+    margin: 0 20px;
+}
+
+.chat-message {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 0;
+    line-height: 40px;
+    background-color: #D9D9D9;
+    font-weight: bold;
+    text-align: center;
+}
+
+.chat-btn {
+    display: flex;
+    justify-content: flex-end
+}
+
+.chat-btn button {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.input {
+    grid-column: 2/3;
+    grid-row: 4/5;
+    display: flex;
+    align-items: contain;
+}
+
+.input-message {
+    display: block;
+    margin: auto 20px;
+    padding-left: 20px;
+    width: 80%;
+    height: 40px;
+    font-size: 18px;
+}
+
+.upload-label {
+    cursor: pointer;
+    color: #FF5555;
+    border: 1px solid #FF5555;
+    border-radius: 5px;
+    width: 100px;
+    line-height: 40px;
+    text-align: center;
+}
+
+.upload-input {
+    display: none;
+}
+
+.input-btn {
+    width: 60px;
+    border: none;
+    cursor: pointer;
+    background-color: white;
+}
+
+.img--preview {
+    display: block;
+    height: 120px;
+    width: auto;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.input-btn img {
+    width: 60px;
+}
+
+.form-error {
+    margin-left: 20px;
+    color: #FF5555;
+}
+
+/* 初期状態ではモーダルは非表示 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* モーダルの中身 */
+.modal-content {
+    background-color: #FDFCE6;
+    margin: 20% auto;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+}
+
+.modal-content p {
+    margin-left: 20px;
+    font-size: 28px;
+}
+
+.modal-toggle {
+    display: none;
+}
+
+/* チェックボックスがONになったらモーダルを表示 */
+.modal-toggle:checked+.modal {
+    display: block;
+}
+
+.rating {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.rating p {
+    margin-left: 20px;
+    font-size: 14px;
+    color: #868686;
+}
+
+.form-rating {
+    align-items: center;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    margin: 0 50px 20px;
+}
+
+.form-rating__input {
+    display: none;
+}
+
+.form-rating__label {
+    color: gray;
+    cursor: pointer;
+    font-size: 40px;
+    padding: 0 10px;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.form-rating__label:hover,
+.form-rating__label:hover~.form-rating__label,
+.form-rating__input:checked~.form-rating__label {
+    /* 「~」でホバー時を動的に、チェック時にそれ以下の数字をもつスターの色も変化 */
+    color: #FFF048;
+}
+
+.review-btn {
+    display: block;
+    margin: 20px 10px 20px auto;
+    width: 100px;
+    height: 40px;
+    color: white;
+    background-color: #FF8282;
+    border: 1px solid #FF8282;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+@media (min-width: 768px) and (max-width: 850px) {
+    .header-logo {
+        margin: auto 0 auto 15px;
+    }
+
+    .complete-btn {
+        width: 180px;
+        line-height: 40px;
+        font-weight: bold;
+        margin-left: 5px;
+        margin-right: 10px;
+        padding: 0 5px;
+    }
+
+    .side-title {
+        font-size: 18px;
+    }
+}

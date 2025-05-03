@@ -7,6 +7,7 @@ use App\Http\Controllers\ExhibitionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DealingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/purchase/address/:{item_id}', [PurchaseController::class, 'address'])->name('address');
     Route::get('/purchase/address/update', [PurchaseController::class, 'update'])->name('address.update');
     Route::post('/purchase/checkout', [PurchaseController::class, 'checkout']);
+    Route::get('/chat', [DealingController::class, 'index'])->name('chat');
+    Route::post('/chat/store', [DealingController::class, 'store']);
+    Route::get('/chat/edit', [DealingController::class, 'edit']);
+    Route::get('/chat/delete', [DealingController::class, 'delete']);
+    Route::post('/chat/review', [DealingController::class, 'review']);
 });
 
 Route::middleware('web')->group(function () {

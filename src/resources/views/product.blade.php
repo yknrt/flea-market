@@ -39,6 +39,10 @@
             <form action="{{ route('purchase', $item->id) }}">
                 <button class="pay-btn" @disabled($item->purchase) >{{ $item->purchase ? "Sold" : "購入手続きへ" }}</button>
             </form>
+            <form action="/chat">
+                <input type="hidden" name="item" value="{{ $item->id }}">
+                <button class="chat-btn">取引</button>
+            </form>
             <div class="product-description">
                 <h2>商品説明</h2>
                 <p>{{ $item->description }}</p>
