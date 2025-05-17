@@ -13,9 +13,9 @@ class Review extends Model
         'id',
     ];
 
-    public function dealing()
+    public function purchase()
     {
-        return $this->belongsTo(Dealing::class);
+        return $this->belongsTo(Purchase::class);
     }
 
     public function user()

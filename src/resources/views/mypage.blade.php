@@ -39,19 +39,19 @@
             @foreach($exhibitions as $exhibition)
             <div class="button-container">
                 <form action="{{ route('chat') }}">
-                    <input type="hidden" name="item" value="{{ $exhibition->dealing->exhibition->id }}">
-                    <input type="hidden" name="dealing" value="{{ $exhibition->dealing->id }}">
+                    <input type="hidden" name="item" value="{{ $exhibition->exhibition->id }}">
+                    <input type="hidden" name="purchase" value="{{ $exhibition->id }}">
                     <button class="image-button">
-                        <img class="product-img" src="{{ asset($exhibition->dealing->exhibition->img) }}" alt="商品画像">
+                        <img class="product-img" src="{{ asset($exhibition->exhibition->img) }}" alt="商品画像">
                         @php
                             $arrCount = array_count_values($notReadMessage)
                         @endphp
-                        @if (isset($arrCount[$exhibition->dealing->id]))
-                            <p class="overlay-text">{{ $arrCount[$exhibition->dealing->id] }}</p>
+                        @if (isset($arrCount[$exhibition->id]))
+                            <p class="overlay-text">{{ $arrCount[$exhibition->id] }}</p>
                         @endif
                     </button>
                 </form>
-                <div class="button-label">{{ $exhibition->dealing->exhibition->name }}</div>
+                <div class="button-label">{{ $exhibition->exhibition->name }}</div>
             </div>
             @endforeach
         @else

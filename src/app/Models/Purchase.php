@@ -23,4 +23,14 @@ class Purchase extends Model
         return $this->belongsTo(Exhibition::class);
     }
 
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
 }

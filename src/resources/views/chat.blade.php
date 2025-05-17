@@ -17,11 +17,11 @@
     <div class="grid-parent">
         <div class="side">
             <p class="side-title">その他の取引</p>
-            @foreach($sortDealings as $dealing)
+            @foreach($sortPurchases as $purchase)
                 <form action="/chat">
-                    <input type="hidden" name="item" value="{{ $dealing->dealing->exhibition->id }}">
-                    <input type="hidden" name="dealing" value="{{ $dealing->dealing->id }}">
-                    <button class="side-link">{{ $dealing->dealing->exhibition->name }}</button>
+                    <input type="hidden" name="item" value="{{ $purchase->exhibition->id }}">
+                    <input type="hidden" name="purchase" value="{{ $purchase->id }}">
+                    <button class="side-link">{{ $purchase->exhibition->name }}</button>
                 </form>
             @endforeach
         </div>
@@ -29,7 +29,7 @@
             <img src="{{ $trade->exhibition->user->profile?->img ?? asset('icon/default.svg') }}" class="ttl-img">
             <span class="ttl-txt">「{{ $trade['user_id'] == $user->id ? $trade['exhibition']->user->name : $trade->user->name }}」さんとの取引画面</span>
             <label for="modal-toggle" class="complete-btn" style="{{$trade['user_id'] == $user->id ? '' : 'display:none'}}">取引を完了する</label>
-            <input type="checkbox" id="modal-toggle" class="modal-toggle" @checked($trade['completed'] == 1) />
+            <input type="checkbox" id="modal-toggle" class="modal-toggle" @checked($trade['talked'] == 1) />
 
             <div class="modal">
                 <div class="modal-content">
@@ -50,7 +50,7 @@
                                 @endfor
                             </div>
                         </div>
-                        <input type="hidden" name="dealing" value="{{ $trade['id'] }}">
+                        <input type="hidden" name="purchase" value="{{ $trade['id'] }}">
                         <button class="review-btn" type="submit">送信する</button>
                     </form>
                 </div>
@@ -64,7 +64,7 @@
                 <p class="item-price">¥{{ number_format($item->price) }}</p>
             </div>
         </div>
-        <div class="chat">
+        <div class="chat" id="chat">
             @foreach($messages as $message)
                 @if($message->user_id == $user->id)
                     <div class="my-message">
@@ -99,7 +99,7 @@
         </div>
         <form action="/chat/store" method="post" id="input-form" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="dealing" value="{{ $trade['id'] }}">
+            <input type="hidden" name="purchase" value="{{ $trade['id'] }}">
             <input type="hidden" name="item" value="{{ $item->id }}">
             <img class="img--preview" id="img-preview" src="" alt="送信画像のプレビュー" style="display: none;">
             <div class="form-error">
@@ -167,6 +167,12 @@
             localStorage.removeItem('messageInput{{ $item->id }}.{{ $trade["user_id"] }}');  // 特定のキー
             document.getElementById('input-form').submit();
 
+        });
+    </script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const chat = document.getElementById('chat');
+            chat.scrollTop = chat.scrollHeight;
         });
     </script>
 </body>

@@ -7,6 +7,7 @@ use App\Models\Exhibition;
 use App\Models\Purchase;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\PurchaseRequest;
+use Carbon\Carbon;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 
@@ -43,7 +44,8 @@ class PurchaseController extends Controller
             'exhibition_id' => $request->item,
             'zip' => $request->zip,
             'address' => $request->address,
-            'building' => $request->building
+            'building' => $request->building,
+            'talked_at' => Carbon::now()
         ];
 
         Purchase::create($purchase);
