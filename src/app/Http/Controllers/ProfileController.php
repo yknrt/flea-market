@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Exhibition;
 use App\Models\Profile;
-use App\Models\Dealing;
+use App\Models\purchase;
 use App\Models\Message;
 use App\Models\Review;
 use App\Http\Requests\ProfileRequest;
@@ -20,10 +20,16 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         #未読メッセージの取得
-        $dealingBuyerIds = $user->dealings->pluck('id');
-        $dealingSellerIds = $user->exhibitions->flatMap->dealings->pluck('id');
-        $dealings = Dealing::whereIn('id', $dealingBuyerIds)->orWhereIn('id', $dealingSellerIds)->get();
-        $notReadMessage = $dealings->flatMap->messages->where('is_read', 0)->where('user_id', '!=', $user->id)->pluck('dealing_id')->toArray();
+        $purchaseBuyerIds = $user->purchases->pluck('id');
+        $purchaseExhibitionsId = $user->exhibitions->pluck('id');
+        $purchaseSellerIds = Purchase::whereIn('exhibition_id', $purchaseExhibitionsId)->pluck('id');
+
+        if ($purchaseSellerIds) {
+            $purchases = purchase::whereIn('id', $purchaseBuyerIds)->orWhereIn('id', $purchaseSellerIds)->get();
+        } else {
+            $purchases = purchase::whereIn('id', $purchaseBuyerIds)->get();
+        }
+        $notReadMessage = $purchases->flatMap->messages->where('is_read', 0)->where('user_id', '!=', $user->id)->pluck('purchase_id')->toArray();
 
         if ($tab == 'sell') {
             $exhibitions = $user->exhibitions;
@@ -31,13 +37,14 @@ class ProfileController extends Controller
             $purchaseExhibitionIds = $user->purchases->pluck('exhibition_id');
             $exhibitions = Exhibition::whereIn('id', $purchaseExhibitionIds)->get();
         } else {
-            $dealingId = $dealings->pluck('id')->toArray();
-            $arrReviewedId = Review::whereIn('dealing_id', $dealingId)->where('user_id', $user->id)->pluck('dealing_id')->toArray();
+            $purchaseId = $purchases->pluck('id')->toArray();
 
-            $exhibitions = $dealings->whereNotIn('id', $arrReviewedId)->flatMap->messages->sortByDesc('created_at')->unique('dealing_id')->values()->all();
+            $arrReviewedId = Review::whereIn('purchase_id', $purchaseId)->where('user_id', $user->id)->pluck('purchase_id')->toArray();
+
+            $exhibitions = $purchases->whereNotIn('id', $arrReviewedId)->sortByDesc('talked_at')->values()->all();
         }
 
-        $rating = $dealings->where('completed', 1)->flatMap->reviews->where('user_id', '!=', $user->id)->pluck('score')->toArray();
+        $rating = $purchases->where('talked', 1)->flatMap->reviews->where('user_id', '!=', $user->id)->pluck('score')->toArray();
         if (count($rating)) {
             $average = round(array_sum($rating) / count($rating));
         } else {

@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             ConditionsTableSeeder::class,
             ExhibitionsTableSeeder::class,
             FavoritesTableSeeder::class,
-            CommentsTableSeeder::class
+            CommentsTableSeeder::class,
+            ProfilesTableSeeder::class
         ]);
 
         $item = Exhibition::find(1);

@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\NotificationMail;
 use App\Models\Exhibition;
 use App\Models\Purchase;
-use App\Models\Dealing;
 use App\Models\Message;
 use App\Models\Review;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\PurchaseRequest;
 use App\Http\Requests\ChatRequest;
 use App\Http\Requests\ReviewRequest;
+use Carbon\Carbon;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 
@@ -23,54 +23,30 @@ class DealingController extends Controller
 {
     public function index(Request $request)
     {
-        // 商品ページからチャットへ
+        // マイページからチャットへ
         $user = Auth::user();
         $item = Exhibition::find($request->item);
 
-        if ($request->has('dealing')) {
-            $trade = Dealing::find($request->dealing);
-        } else {
-            $trade = Dealing::where('exhibition_id', $item->id)->where('user_id', $user->id)->where('completed', 0)->first();
+        $trade = Purchase::find($request->purchase);
+
+        $messages = Message::where('purchase_id', $trade->id)->get();
+
+        // 未読メッセージを既読にする
+        $yourMessages = $messages->where('user_id', '!=', $user->id);
+        foreach ($yourMessages as $yourMessage) {
+            $yourMessage->is_read = true;
+            $yourMessage->save();
         }
 
-        if (is_null($trade)) {
-            // 取引開始
-            $trade = [
-                'id' => 0,
-                'user_id' => $user->id,
-                'completed' => 0,
-                'user' => $user,
-                'exhibition' => $item
-            ];
-            $messages = [];
-            $exhibitions = Exhibition::where('user_id', $user->id)->pluck('id');
-            $dealings = Dealing::whereIn('exhibition_id', $exhibitions)->orWhere('user_id', $user->id)->get();
+        $exhibitions = Exhibition::where('user_id', $user->id)->pluck('id');
+        $purchases = Purchase::whereIn('exhibition_id', $exhibitions)->orWhere('user_id', $user->id)->where('id', '!=', $trade->id)->get();
 
-            $dealingId = $dealings->pluck('id')->toArray();
-            $arrReviewedId = Review::whereIn('dealing_id', $dealingId)->where('user_id', $user->id)->pluck('dealing_id')->toArray();
+        $purchaseId = $purchases->pluck('id')->toArray();
+        $arrReviewedId = Review::whereIn('purchase_id', $purchaseId)->where('user_id', $user->id)->pluck('purchase_id')->toArray();
 
-            $sortDealings = $dealings->whereNotIn('id', $arrReviewedId)->flatMap->messages->sortByDesc('created_at')->unique('dealing_id')->values()->all();
-        } else {
-            // 2回目以降
-            $messages = Message::where('dealing_id', $trade->id)->get();
+        $sortPurchases = $purchases->whereNotIn('id', $arrReviewedId)->where('id', '!=', $trade->id)->sortByDesc('talked_at')->values()->all();
 
-            // 未読メッセージを既読にする
-            $yourMessages = $messages->where('user_id', '!=', $user->id);
-            foreach ($yourMessages as $yourMessage) {
-                $yourMessage->is_read = true;
-                $yourMessage->save();
-            }
-
-            $exhibitions = Exhibition::where('user_id', $user->id)->pluck('id');
-            $dealings = Dealing::whereIn('exhibition_id', $exhibitions)->orWhere('user_id', $user->id)->where('id', '!=', $trade->id)->get();
-
-            $dealingId = $dealings->pluck('id')->toArray();
-            $arrReviewedId = Review::whereIn('dealing_id', $dealingId)->where('user_id', $user->id)->pluck('dealing_id')->toArray();
-
-            $sortDealings = $dealings->whereNotIn('id', $arrReviewedId)->flatMap->messages->sortByDesc('created_at')->unique('dealing_id')->where('dealing_id', '!=', $trade->id)->values()->all();
-        }
-
-        return view('chat', compact('item', 'user', 'trade', 'sortDealings', 'messages'));
+        return view('chat', compact('item', 'user', 'trade', 'sortPurchases', 'messages'));
     }
 
     public function store(ChatRequest $request)
@@ -78,17 +54,7 @@ class DealingController extends Controller
         $item = $request->item;
         $user = Auth::user();
 
-        // 初めてチャットをする
-        if ($request->dealing == 0) {
-            $trade = [
-                'user_id' => $user->id,
-                'exhibition_id' => $item
-            ];
-            Dealing::create($trade);
-            $trade = Dealing::where('exhibition_id', $item)->where('user_id', $user->id)->first();
-        } else {
-            $trade = Dealing::find($request->dealing);
-        }
+        $trade = Purchase::find($request->purchase);
 
         if ($request->has('update')) {
             // 送信したメッセージを編集する
@@ -97,7 +63,7 @@ class DealingController extends Controller
             $message->save();
         } else {
             $form = [
-                'dealing_id' => $trade->id,
+                'purchase_id' => $trade->id,
                 'user_id' => Auth::id(),
                 'message' => $request->message
             ];
@@ -111,6 +77,8 @@ class DealingController extends Controller
                 }
             }
             Message::create($form);
+            $trade->talked_at = Carbon::now();
+            $trade->save();
         }
 
         return redirect()->back();
@@ -137,29 +105,29 @@ class DealingController extends Controller
 
     public function review(ReviewRequest $request)
     {
-        if (empty($request->dealing)) {
+        if (empty($request->purchase)) {
             return redirect()->route('home');
         }
 
         $user = Auth::user();
-        $dealing = Dealing::find($request->dealing);
-        $dealing->completed = true;
-        $dealing->save();
+        $purchase = Purchase::find($request->purchase);
+        $purchase->talked = true;
+        $purchase->save();
 
         $form = [
-            'dealing_id' => $request->dealing,
+            'purchase_id' => $request->purchase,
             'user_id' => $user->id,
             'score' => $request->rating
         ];
         Review::create($form);
 
         # メール送信
-        if ($user->id == $dealing->user_id) {
-            $sellerEmail = $dealing->exhibition->user->email;
+        if ($user->id == $purchase->user_id) {
+            $sellerEmail = $purchase->exhibition->user->email;
 
             $content = [
                 'user' => $user->name,
-                'item' => $dealing->exhibition->name,
+                'item' => $purchase->exhibition->name,
             ];
 
             Mail::to($sellerEmail)->send(new NotificationMail($content));

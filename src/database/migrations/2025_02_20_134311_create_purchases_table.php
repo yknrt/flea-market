@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('zip');
             $table->string('address');
             $table->string('building')->nullable();
+            $table->boolean('talked')->default(false);
+            $table->timestamp('talked_at')->nullable();
             $table->timestamps();
         });
     }
